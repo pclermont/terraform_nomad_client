@@ -59,16 +59,16 @@ resource "aws_instance" "nomad_client" {
   }
 
   provisioner "file" {
-    source = "${path.module}/../shared/scripts/client.hcl"
+    source = "${path.module}/shared/scripts/client.hcl"
     destination = "/tmp/client.hcl"
   }
 
   provisioner "file" {
-    source = "${path.module}/../shared/scripts/${lookup(var.service_conf, var.platform)}"
+    source = "${path.module}/shared/scripts/${lookup(var.service_conf, var.platform)}"
     destination = "/tmp/${lookup(var.service_conf_dest, var.platform)}"
   }
   provisioner "file" {
-    source = "${path.module}/../shared/scripts/${lookup(var.consul_service_conf, var.platform)}"
+    source = "${path.module}/shared/scripts/${lookup(var.consul_service_conf, var.platform)}"
     destination = "/tmp/${lookup(var.consul_service_conf_dest, var.platform)}"
   }
 
@@ -81,11 +81,11 @@ resource "aws_instance" "nomad_client" {
 
   provisioner "remote-exec" {
     scripts = [
-      "${path.module}/../shared/scripts/dependencies.sh",
-      "${path.module}/../shared/scripts/install_consul.sh",
-      "${path.module}/../shared/scripts/install.sh",
-      "${path.module}/../shared/scripts/service.sh",
-      "${path.module}/../shared/scripts/ip_tables.sh",
+      "${path.module}/shared/scripts/dependencies.sh",
+      "${path.module}/shared/scripts/install_consul.sh",
+      "${path.module}/shared/scripts/install.sh",
+      "${path.module}/shared/scripts/service.sh",
+      "${path.module}/shared/scripts/ip_tables.sh",
     ]
   }
 }
